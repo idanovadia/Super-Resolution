@@ -16,13 +16,13 @@ Once you have loaded and generated the above arrays of input images, we would li
 Next, I asked you to present few images so that we can compare the training with our desired labels, this process is good for verifying that we have got the input we want and will also be useful for visual assessment of our model’s results so make sure you write it as a function for later reuse.
 You should get something like this as an output:
 
-![](https://github.com/idanovadia/Predict-Future-Sales---Kaggle-Competition/blob/master/photos/3.png)
+![](https://github.com/idanovadia/Super-Resolution/blob/master/images/1.png)
 
 Step 2:
 Create an initial model
 In this step we created the following (vanilla) model:
 
-![](https://github.com/idanovadia/Predict-Future-Sales---Kaggle-Competition/blob/master/photos/3.png)
+![](https://github.com/idanovadia/Super-Resolution/blob/master/images/2.png)
 
 
 We fitted this model to our data using X_train and y_mid_train only
@@ -30,28 +30,28 @@ Step 3:
 We added another block to our model so now we have both 144x144x3 output along with 288x288x3 output as follows:
 (make sure you understand the dimensions in each step of the process)
 
-![](https://github.com/idanovadia/Predict-Future-Sales---Kaggle-Competition/blob/master/photos/3.png)
+![](https://github.com/idanovadia/Super-Resolution/blob/master/images/3.png)
 
 Step 4:
 Add residual blocks into the process
 The residual blocks that we added were defined as a function with no arguments that returns a model.
 We later used this residual block definition within our model prior to every UpSampling layer
 
-![](https://github.com/idanovadia/Predict-Future-Sales---Kaggle-Competition/blob/master/photos/3.png)
+![](https://github.com/idanovadia/Super-Resolution/blob/master/images/4.png)
 
 Step 5:
 replace the residual blocks we defined above with a dilated convolutional block as described below:
 
-![](https://github.com/idanovadia/Predict-Future-Sales---Kaggle-Competition/blob/master/photos/3.png)
+![](https://github.com/idanovadia/Super-Resolution/blob/master/images/5.png)
 
 Step 6:
 Add pretrained network (efficientnet/VGG16/resnet) feature extractor to the network (note that the input to the network is only being read once)
 
-![](https://github.com/idanovadia/Predict-Future-Sales---Kaggle-Competition/blob/master/photos/3.png)
+![](https://github.com/idanovadia/Super-Resolution/blob/master/images/6.png)
 
 This step will be a part of what we’ll do next class:
 Step 7: replace the Upsampling2D layer with a lambda layer that receives scaling factor as input and returns tf.depth_to_space(x,scale)
 * Note that the number of filters in the preceding layer (num of input channels to the depth_to_space layer) should be divisible by (scale^2)
 
-![](https://github.com/idanovadia/Predict-Future-Sales---Kaggle-Competition/blob/master/photos/3.png)
+![](https://github.com/idanovadia/Super-Resolution/blob/master/images/7.png)
 
